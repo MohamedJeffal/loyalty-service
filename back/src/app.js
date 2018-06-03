@@ -1,8 +1,12 @@
 const http = require('http')
 const co = require('co')
 const express = require('express')
+const MongoClient = require('mongodb').MongoClient
 
 const { configure } = require('./config/express')
+const { mongodb } = require('./config')
+
+const consumer = require('./consumer')
 
 let app
 let server
@@ -17,6 +21,13 @@ async function start() {
     return app
   }
   app = configure(express())
+
+  const client = await MongoClient.connect(mongodb.url)
+    .catch(err => console.log('Db connection failed: ', err))
+
+  const db = client.db(mongodb.name)  
+
+  await consumer(db)
 
   const port = app.get('port')
   server = http.createServer(app)
