@@ -1,12 +1,14 @@
 const {
   validateRiderSignup,
   validateRiderPhoneNumberUpdate,
+  buildInsertData,
 } = require('../models/rider')
+
 const dao = require('../dao/rider')
 
-exports.riderSignup = function riderSignup(db, { payload }) {
+exports.riderSignup = function riderSignup(db, { payload } = {}) {
   if (validateRiderSignup(payload)) {
-    return dao.createRider(db, payload)
+    return dao.createRider(db, buildInsertData(payload))
   }
 
   return Promise.reject(
@@ -16,10 +18,10 @@ exports.riderSignup = function riderSignup(db, { payload }) {
 
 exports.updateRiderPhoneNumber = function updateRiderPhoneNumber(
   db,
-  { payload },
+  { payload } = {},
 ) {
   if (validateRiderPhoneNumberUpdate(payload)) {
-    return dao.updateRiderPhoneNumber(db, payload)
+    return dao.updateRiderPhoneNumber(db, payload.id, payload.phone_number)
   }
 
   return Promise.reject(

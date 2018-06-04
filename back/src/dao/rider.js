@@ -1,7 +1,14 @@
 const collectionName = 'riders'
 
+exports.findRiderbyId = function findRiderbyId(db, riderId) {
+  return db
+    .collection(collectionName)
+    .findOne({ _id: riderId })
+    .then(r => r !== undefined && r !== null)
+}
+
 exports.createRider = function createRider(db, riderData) {
-  // TODO: check whether rider already exists in db (same id)
+  // TODO: handle when rider already exists in db (same id) => code: 11000
 
   return db
     .collection(collectionName)
@@ -11,15 +18,13 @@ exports.createRider = function createRider(db, riderData) {
 
 exports.updateRiderPhoneNumber = function updateRiderPhoneNumber(
   db,
-  riderData,
+  riderId,
+  riderPhoneNumber,
 ) {
   // TODO: check whether rider already exists in db (same id)
 
   return db
     .collection(collectionName)
-    .updateOne(
-      { id: riderData.id },
-      { $set: { phone_number: riderData.phone_number } },
-    )
+    .updateOne({ _id: riderId }, { $set: { phone_number: riderPhoneNumber } })
     .then(r => r.matchedCount === 1 && r.modifiedCount === 1)
 }
