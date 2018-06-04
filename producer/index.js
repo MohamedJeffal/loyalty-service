@@ -129,7 +129,7 @@ async function publish(message) {
     client.channel.publish(
         EXCHANGE,
         EVENTS[message.type].routing_key,
-        new Buffer(JSON.stringify(message)), {
+        Buffer.from(JSON.stringify(message)), {
         persistent: false,
         expiration: 10000 // ms
     });

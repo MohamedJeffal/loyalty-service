@@ -3,7 +3,7 @@
 const express = require('express')
 const wrap = require('co-express')
 
-const controller = require('./hello.controller')
+const controller = require('./welcome.controller')
 
 const router = express.Router()
 
