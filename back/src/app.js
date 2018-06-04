@@ -24,11 +24,12 @@ async function start() {
   app = configure(express())
 
   dbClient = await MongoClient.connect(mongodb.url).catch(err =>
-    console.warn('Db connection failed: ', err)
+    console.warn('Db connection failed: ', err),
   )
 
   const db = dbClient.db(mongodb.name)
 
+  // Todo: connection close
   await consumer(db)
 
   const port = app.get('port')

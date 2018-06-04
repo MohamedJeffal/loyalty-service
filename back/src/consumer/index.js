@@ -2,18 +2,14 @@ const { connect } = require('amqplib')
 const { amqp } = require('../config')
 
 const { riderSignup, updateRiderPhoneNumber } = require('../modules/rider')
+const { createRide, completeRide } = require('../modules/ride')
 
 const HANDLED_EVENTS = [
   'rider.signup',
   'rider.phone_update',
-  /*'ride.create',
-  'ride.completed',*/
+  'ride.create',
+  'ride.completed',
 ]
-
-/**
- * Todo:
- * - write a fn that maps on events type and consume
- */
 
 function bindQueueRouting(channel, queue, events = HANDLED_EVENTS) {
   return Promise.all(
@@ -26,6 +22,7 @@ function handleMessage(db, message) {
   console.log('contentcontentcontent: ', message.content.toString())
 
   const messageContent = JSON.parse(message.content)
+  // Todo: build map where handledEvent => handling fn
   switch (message.fields.routingKey) {
     case 'rider.signup':
       return riderSignup(db, messageContent).catch(err =>
@@ -34,6 +31,14 @@ function handleMessage(db, message) {
     case 'rider.phone_update':
       return updateRiderPhoneNumber(db, messageContent).catch(err =>
         console.warn('Rider phone update: ', err),
+      )
+    case 'ride.create':
+      return createRide(db, messageContent).catch(err =>
+        console.warn('Ride creation: ', err),
+      )
+    case 'ride.completed':
+      return completeRide(db, messageContent).catch(err =>
+        console.warn('Ride completed: ', err),
       )
   }
 }
