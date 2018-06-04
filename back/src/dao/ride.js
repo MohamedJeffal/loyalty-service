@@ -39,7 +39,17 @@ exports.findCompletedRidesCountByRiderId = function findCompletedRidesCountByRid
 ) {
   return db
     .collection(collectionName)
-    .count({ rider_id: riderId, completed_amount: { $exists: true } })
+    .count({ rider_id: riderId, earned_points: { $exists: true } })
+}
+
+exports.findCompletedRidesByRiderId = function findCompletedRidesByRiderId(
+  db,
+  riderId
+) {
+  return db
+    .collection(collectionName)
+    .find({ rider_id: riderId, earned_points: { $exists: true } })
+    .toArray()
 }
 
 exports.findCompletedRidesPointsAndCountByRiderId = function findCompletedRidesPointsAndCountByRiderId(

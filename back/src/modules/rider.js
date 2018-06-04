@@ -33,3 +33,10 @@ exports.updateRiderPhoneNumber = function updateRiderPhoneNumber(
 exports.getRiderLoyaltyData = function getRiderLoyaltyData(db, riderId) {
   return rideDao.findCompletedRidesPointsAndCountByRiderId(db, riderId)
 }
+
+exports.getRiderCompletedRidesData = function getRiderCompletedRidesData(
+  db,
+  riderId
+) {
+  return rideDao.findCompletedRidesByRiderId(db, riderId)
+}

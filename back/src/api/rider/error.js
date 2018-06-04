@@ -1,22 +1,23 @@
 const { NOT_FOUND, BAD_REQUEST } = require('http-status-codes')
 
-const { SERVICE_TEMPLATE } = require('./constants')
-
-exports.buildApiRiderBadRequest = function buildApiRiderBadRequest() {
+exports.buildApiRiderBadRequest = function buildApiRiderBadRequest(template) {
   return {
     statusCode: BAD_REQUEST,
-    template: SERVICE_TEMPLATE,
-    message: 'Invalid request.',
+    response: {
+      template,
+      message: 'Invalid request: bad rider id.',
+    },
   }
 }
 
 exports.buildApiRiderNotFoundResponse = function buildApiRiderNotFoundResponse(
+  template,
   riderId
 ) {
   return {
     statusCode: NOT_FOUND,
     response: {
-      template: SERVICE_TEMPLATE,
+      template,
       message: `Rider with id ${riderId} not found.`,
     },
   }
