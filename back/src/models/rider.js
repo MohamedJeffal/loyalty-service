@@ -1,20 +1,21 @@
 const Joi = require('joi')
 
-const schema = Joi.object().keys({
+const insertSchema = Joi.object().keys({
   id: Joi.number().required(),
-  name: Joi.string().required(),
-  phone_number: Joi.string().length(13),
+  name: Joi.string().required()
 })
 
-exports.createRiderData = function createRiderData(riderData) {
-  return {
-    id: riderData.id,
-    name: riderData.name,
-  }
-}
+const updateSchema = Joi.object().keys({
+  id: Joi.number().required(),
+  // Todo: check format
+  phone_number: Joi.string().required(),
+})
 
-exports.validateRider = function validateRider(riderData) {
+const validateRider = schema => riderData => {
   const { error, value } = Joi.validate(riderData, schema)
 
-  return !!error
+  return error === undefined || error === null
 }
+
+exports.validateRiderSignup = validateRider(insertSchema)
+exports.validateRiderPhoneNumberUpdate = validateRider(updateSchema)

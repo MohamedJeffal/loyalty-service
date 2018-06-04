@@ -10,6 +10,7 @@ const consumer = require('./consumer')
 
 let app
 let server
+let dbClient
 
 /**
  * Start the web app.
@@ -22,10 +23,11 @@ async function start() {
   }
   app = configure(express())
 
-  const client = await MongoClient.connect(mongodb.url)
-    .catch(err => console.log('Db connection failed: ', err))
+  dbClient = await MongoClient.connect(mongodb.url).catch(err =>
+    console.warn('Db connection failed: ', err)
+  )
 
-  const db = client.db(mongodb.name)  
+  const db = dbClient.db(mongodb.name)
 
   await consumer(db)
 
@@ -45,8 +47,10 @@ async function start() {
 async function stop() {
   if (server) {
     await server.close()
+    dbClient.close()
     server = null
     app = null
+    dbClient = null
   }
   return Promise.resolve()
 }
