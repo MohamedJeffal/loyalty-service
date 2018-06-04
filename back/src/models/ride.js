@@ -18,12 +18,16 @@ exports.buildCreatedData = function buildCreatedData(ridePayload) {
   }
 }
 
-exports.buildCompletedData = function buildCompletedData(ridePayload) {
+exports.buildCompletedData = function buildCompletedData(
+  ridePayload,
+  earnedPoints
+) {
   return {
     _id: ridePayload.id,
     completed_amount: ridePayload.amount,
     rider_id: ridePayload.rider_id,
     completed_at: new Date(),
+    earned_points: earnedPoints,
   }
 }
 

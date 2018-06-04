@@ -13,7 +13,7 @@ const HANDLED_EVENTS = [
 
 function bindQueueRouting(channel, queue, events = HANDLED_EVENTS) {
   return Promise.all(
-    events.map(event => channel.bindQueue(queue, amqp.exchange, event)),
+    events.map(event => channel.bindQueue(queue, amqp.exchange, event))
   ).then(() => queue)
 }
 
@@ -26,19 +26,19 @@ function handleMessage(db, message) {
   switch (message.fields.routingKey) {
     case 'rider.signup':
       return riderSignup(db, messageContent).catch(err =>
-        console.warn('Rider signup: ', err),
+        console.warn('Rider signup: ', err)
       )
     case 'rider.phone_update':
       return updateRiderPhoneNumber(db, messageContent).catch(err =>
-        console.warn('Rider phone update: ', err),
+        console.warn('Rider phone update: ', err)
       )
     case 'ride.create':
       return createRide(db, messageContent).catch(err =>
-        console.warn('Ride creation: ', err),
+        console.warn('Ride creation: ', err)
       )
     case 'ride.completed':
       return completeRide(db, messageContent).catch(err =>
-        console.warn('Ride completed: ', err),
+        console.warn('Ride completed: ', err)
       )
   }
 }
@@ -54,7 +54,7 @@ module.exports = db => {
         .then(queue =>
           channel.consume(queue, msg => handleMessage(db, msg), {
             noAck: true,
-          }),
+          })
         )
         .then(() => {
           console.log(' [*] Waiting for logs. To exit press CTRL+C.')

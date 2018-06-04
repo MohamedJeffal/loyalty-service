@@ -19,7 +19,7 @@ exports.createRider = function createRider(db, riderData) {
 exports.updateRiderPhoneNumber = function updateRiderPhoneNumber(
   db,
   riderId,
-  riderPhoneNumber,
+  riderPhoneNumber
 ) {
   // TODO: check whether rider already exists in db (same id)
 

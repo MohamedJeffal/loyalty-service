@@ -21,5 +21,5 @@ exports.buildInsertData = function buildInsertData(riderPayload) {
 
 exports.validateRiderSignup = validatePayload(createdSchema)
 exports.validateRiderPhoneNumberUpdate = validatePayload(
-  phoneNumberUpdateSchema,
+  phoneNumberUpdateSchema
 )

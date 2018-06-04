@@ -21,13 +21,16 @@ async function start() {
   if (app) {
     return app
   }
-  app = configure(express())
 
+  // Todo: put this block in db conf module
   dbClient = await MongoClient.connect(mongodb.url).catch(err =>
-    console.warn('Db connection failed: ', err),
+    console.warn('Db connection failed: ', err)
   )
 
   const db = dbClient.db(mongodb.name)
+  await db.collection('rides').createIndex({ rider_id: 1 })
+
+  app = configure(express(), db)
 
   // Todo: connection close
   await consumer(db)

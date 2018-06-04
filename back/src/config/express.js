@@ -13,17 +13,26 @@ const api = require('../api')
  * @param {Express} app application
  * @returns {Object} Configured Express application
  */
-function configure(app) {
+function configure(app, db) {
   /** Body parser */
   app.use(bodyParser.urlencoded({ extended: false }))
   app.use(bodyParser.json())
+
+  // Define request context data
+  app.use((req, res, next) => {
+    req.context = {
+      db,
+    }
+
+    next()
+  })
 
   /** prevent CORS failures for this test */
   app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*')
     res.header(
       'Access-Control-Allow-Headers',
-      'Origin, X-Requested-With, Content-Type, Accept',
+      'Origin, X-Requested-With, Content-Type, Accept'
     )
     next()
   })
