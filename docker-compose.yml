@@ -6,7 +6,7 @@ services:
     working_dir: /usr/src/app/back/
     command: ./wait-for-it.sh -t 50 msg-broker:5672 -- yarn start
     ports:
-      - "3000:8000"
+      - "8000:8000"
     environment:
       - MONGO_URL=mongodb://db:27017/temp
       - AMQP_URL=amqp://guest:guest@msg-broker:5672

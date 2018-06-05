@@ -1,3 +1,6 @@
+/**
+ * Map of handled loyalty statuses
+ */
 const STATUSES = {
   bronze: {
     label: 'bronze',
@@ -17,6 +20,11 @@ const STATUSES = {
   },
 }
 
+/**
+ * Return a loyalty status label from a completed rides count
+ * @param {Number} completedRidesCount - Number of completed rides
+ * @returns {String|null}
+ */
 exports.computeLoyaltyStatus = function computeLoyaltyStatus(
   completedRidesCount
 ) {
@@ -35,6 +43,12 @@ exports.computeLoyaltyStatus = function computeLoyaltyStatus(
   }
 }
 
+/**
+ * Return loyalty points from a status and the paid amount
+ * @param {String} currentLoyaltyStatus - Loyalty status label
+ * @param {Number} paidAmount - Ride paid amount
+ * @returns {Number|null}
+ */
 exports.computeLoyaltyPoints = function computeLoyaltyStatus(
   currentLoyaltyStatus,
   paidAmount
