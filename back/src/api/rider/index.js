@@ -49,10 +49,10 @@ const router = express.Router()
 router.get('/:id', wrap(controller.getRiderLoyalty))
 
 /**
- * @api {get} /riders/:id Get rider completed rides by id
+ * @api {get} /riders/:id Get rider last completed rides by id
  * @apiGroup Rider
  *
- * @apiDescription Get rider completed rides by id
+ * @apiDescription Get rider last completed rides by id
  *
  * @apiParam {String} id - Rider identifier
  *
@@ -72,6 +72,14 @@ router.get('/:id', wrap(controller.getRiderLoyalty))
  *       "template": "rider.loyalty.rides",
  *       "riderId": 1152584073971054,
  *       "rides": [
+ *            {
+ *               "id": 6746175037174551,
+ *               "createdAt": "2018-06-04T22:33:29.092Z",
+ *               "initialPrice": "28.79€",
+ *               "completedAt": "2018-06-04T22:33:29.102Z",
+ *               "completedPrice": "10.45€",
+ *               "earnedPoints": 10
+ *           },
  *           {
  *               "id": 1076556899285388,
  *               "createdAt": "2018-06-04T22:33:29.070Z",
@@ -79,14 +87,6 @@ router.get('/:id', wrap(controller.getRiderLoyalty))
  *               "completedAt": "2018-06-04T22:33:29.082Z",
  *               "completedPrice": "7.73€",
  *               "earnedPoints": 8
- *           },
- *           {
- *               "id": 6746175037174551,
- *               "createdAt": "2018-06-04T22:33:29.092Z",
- *               "initialPrice": "28.79€",
- *               "completedAt": "2018-06-04T22:33:29.102Z",
- *               "completedPrice": "10.45€",
- *               "earnedPoints": 10
  *           }
  *       ]
  *      }

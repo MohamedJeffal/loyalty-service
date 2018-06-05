@@ -26,7 +26,7 @@ This service is responsible for managing the loyalty program, and is using an ev
          }
         ```
 
-- `/api/riders/:rider_id/rides` => Get rider completed rides by id
+- `/api/riders/:rider_id/rides` => Get rider last completed rides by id
     - Result example:
         ```
         {
@@ -34,20 +34,20 @@ This service is responsible for managing the loyalty program, and is using an ev
             "riderId": 1152584073971054,
             "rides": [
                 {
-                    "id": 1076556899285388,
-                    "createdAt": "2018-06-04T22:33:29.070Z",
-                    "initialPrice": "5.67€",
-                    "completedAt": "2018-06-04T22:33:29.082Z",
-                    "completedPrice": "7.73€",
-                    "earnedPoints": 8
-                },
-                {
                     "id": 6746175037174551,
                     "createdAt": "2018-06-04T22:33:29.092Z",
                     "initialPrice": "28.79€",
                     "completedAt": "2018-06-04T22:33:29.102Z",
                     "completedPrice": "10.45€",
                     "earnedPoints": 10
+                },
+                {
+                    "id": 1076556899285388,
+                    "createdAt": "2018-06-04T22:33:29.070Z",
+                    "initialPrice": "5.67€",
+                    "completedAt": "2018-06-04T22:33:29.082Z",
+                    "completedPrice": "7.73€",
+                    "earnedPoints": 8
                 }
             ]
         }
@@ -57,6 +57,7 @@ This service is responsible for managing the loyalty program, and is using an ev
 - Add api `rider_id` params validation middleware with Joi: better handling of bad requests.
 - Complete documentation.
 - Add tests: at least unit tests for the loyalty module.
+- Presented prices: round to 2 decimals.
 - Create js Error variants for each type of error encountered.
 - Migrate console.log / console.warn instances to proper logging library.
 - Improve error log messages.

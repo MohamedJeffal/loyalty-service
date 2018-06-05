@@ -19,7 +19,7 @@ services:
       - msg-broker
   
   producer:
-    image: node:8.11.2-alpine
+    image: node:8.11.2
     working_dir: /usr/src/app/producer/
     ports:
       - "3001:3000"

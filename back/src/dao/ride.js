@@ -71,7 +71,7 @@ exports.findCompletedRidesCountByRiderId = function findCompletedRidesCountByRid
 }
 
 /**
- * Query completed rides by rider id
+ * Query last completed rides by rider id
  * @param {Object} db - Mongodb database reference
  * @param {Number} riderId - Rider identifier
  * @returns {Promise<Array<Object>|null>}
@@ -82,6 +82,7 @@ exports.findCompletedRidesByRiderId = function findCompletedRidesByRiderId(
 ) {
   return getRidesCol(db)
     .find({ rider_id: riderId, earned_points: { $exists: true } })
+    .sort({ completed_at: -1 })
     .limit(maxQueryLimit)
     .toArray()
     .catch(err => {
