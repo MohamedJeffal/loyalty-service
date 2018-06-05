@@ -1,7 +1,7 @@
 /**
  * Map of handled loyalty statuses
  */
-const STATUSES = {
+exports.STATUSES = {
   bronze: {
     label: 'bronze',
     pointValue: 1,
@@ -33,13 +33,13 @@ exports.computeLoyaltyStatus = function computeLoyaltyStatus(
   }
 
   if (completedRidesCount >= 0 && completedRidesCount < 20) {
-    return STATUSES.bronze.label
+    return exports.STATUSES.bronze.label
   } else if (completedRidesCount < 50) {
-    return STATUSES.silver.label
+    return exports.STATUSES.silver.label
   } else if (completedRidesCount < 100) {
-    return STATUSES.gold.label
+    return exports.STATUSES.gold.label
   } else {
-    return STATUSES.platinum.label
+    return exports.STATUSES.platinum.label
   }
 }
 
@@ -54,12 +54,19 @@ exports.computeLoyaltyPoints = function computeLoyaltyStatus(
   paidAmount
 ) {
   if (
+    !currentLoyaltyStatus ||
     !Number.isFinite(paidAmount) ||
-    !Object.keys(STATUSES).includes(currentLoyaltyStatus)
+    paidAmount < 0 ||
+    !Object.keys(exports.STATUSES).includes(currentLoyaltyStatus)
   ) {
     return null
   }
 
+  /**
+   * It's a test, so we are generous here, but we should check what makes the most sense:
+   *  - Math.round(paidAmount) * pointValue => current choice
+   *  - Math.round(paidAmount * pointValue)
+   */
   const aproxAmount = Math.round(paidAmount)
-  return STATUSES[currentLoyaltyStatus].pointValue * aproxAmount
+  return exports.STATUSES[currentLoyaltyStatus].pointValue * aproxAmount
 }

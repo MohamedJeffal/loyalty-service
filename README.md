@@ -56,7 +56,9 @@ This service is responsible for managing the loyalty program, and is using an ev
 ## Todo:
 - Add api `rider_id` params validation middleware with Joi: better handling of bad requests.
 - Complete documentation.
-- Add tests: at least unit tests for the loyalty module.
+- Add tests:
+    - Unit tests for the loyalty module => Done
+    - Integration tests for the implemented services.
 - Presented prices: round to 2 decimals.
 - Create js Error variants for each type of error encountered.
 - Migrate console.log / console.warn instances to proper logging library.

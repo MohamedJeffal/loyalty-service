@@ -13,7 +13,7 @@
     "pretest": "yarn eslint",
     "test": "yarn coverage",
     "apidoc": "apidoc -i src/api -o apidoc/",
-    "format": "yarn prettier --write \"{src,__{test}__}/**/*.js\""
+    "format": "yarn prettier --write \"{src,test}/**/*.js\""
   },
   "engines": {
     "node": ">=8.5"
