@@ -18,7 +18,7 @@ function configure(app, db) {
   app.use(bodyParser.urlencoded({ extended: false }))
   app.use(bodyParser.json())
 
-  // Define request context data
+  // Define request context data with db reference
   app.use((req, res, next) => {
     req.context = {
       db,

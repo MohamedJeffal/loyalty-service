@@ -25,6 +25,7 @@ const {
 async function getRiderLoyalty(req, res) {
   const riderId = parseInt(req.params.id)
 
+  // Todo: Use Joi
   if (Number.isNaN(riderId)) {
     const { statusCode, response } = buildApiRiderBadRequest(RIDER_TEMPLATE)
 
@@ -49,6 +50,7 @@ async function getRiderLoyalty(req, res) {
 async function getRiderCompletedRides(req, res) {
   const riderId = parseInt(req.params.id)
 
+  // Todo: Use Joi
   if (Number.isNaN(riderId)) {
     const { statusCode, response } = buildApiRiderBadRequest(
       RIDER_RIDES_TEMPLATE

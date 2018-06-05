@@ -10,6 +10,7 @@ module.exports = {
       sslValidate: process.env.MONGO_SSL_VALIDATE === 'true',
       sslCA: [Buffer.from(process.env.MONGO_SSL_CERT || '', 'utf-8')],
     },
+    maxQueryLimit: 100,
   },
   amqp: {
     exchange: process.env.AMQP_MAIN_EXCHANGE || 'events',

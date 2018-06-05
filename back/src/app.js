@@ -8,6 +8,8 @@ const { mongodb } = require('./config')
 
 const consumer = require('./consumer')
 
+const { COLLECTION_NAME } = require('./dao/ride')
+
 let app
 let server
 let dbClient
@@ -22,13 +24,12 @@ async function start() {
     return app
   }
 
-  // Todo: put this block in db conf module
+  // Todo: put this block in a separate db configuration module
   dbClient = await MongoClient.connect(mongodb.url).catch(err =>
     console.warn('Db connection failed: ', err)
   )
-
   const db = dbClient.db(mongodb.name)
-  await db.collection('rides').createIndex({ rider_id: 1 })
+  await db.collection(COLLECTION_NAME).createIndex({ rider_id: 1 })
 
   app = configure(express(), db)
 
